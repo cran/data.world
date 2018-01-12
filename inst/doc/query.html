@@ -85,15 +85,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Inspecting the schema</h2>
 <p>When using SQL, it’s a good idea to start by understanding the schema inferred by data.world from the data that has been uploaded. That is done by querying the <code>Tables</code> table.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">intro_ds &lt;-<span class="st"> &quot;https://data.world/jonloyens/an-intro-to-dataworld-dataset&quot;</span>
-tables_df &lt;-<span class="st"> </span>data.world::<span class="kw">query</span>(
-  data.world::<span class="kw">qry_sql</span>(<span class="st">&quot;SELECT * FROM Tables&quot;</span>),
+tables_df &lt;-<span class="st"> </span>data.world<span class="op">::</span><span class="kw">query</span>(
+  data.world<span class="op">::</span><span class="kw">qry_sql</span>(<span class="st">&quot;SELECT * FROM Tables&quot;</span>),
   <span class="dt">dataset =</span> intro_ds
 )
 tables_df</code></pre></div>
 <p>It is also possible to obtain information about columns. For that, use the <code>TableColumns</code> table instead.</p>
 <p>Try:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">columns_df &lt;-<span class="st"> </span>data.world::<span class="kw">query</span>(
-  data.world::<span class="kw">qry_sql</span>(<span class="st">&quot;SELECT * FROM TableColumns&quot;</span>),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">columns_df &lt;-<span class="st"> </span>data.world<span class="op">::</span><span class="kw">query</span>(
+  data.world<span class="op">::</span><span class="kw">qry_sql</span>(<span class="st">&quot;SELECT * FROM TableColumns&quot;</span>),
   <span class="dt">dataset =</span> intro_ds
 )
 columns_df</code></pre></div>
@@ -102,27 +102,27 @@ columns_df</code></pre></div>
 <h2>SELECT queries</h2>
 <p>Just like the queries above, any SQL query can be created using <code>qry_sql</code>.<br />
 For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assists_vs_height &lt;-<span class="st"> </span>data.world::<span class="kw">qry_sql</span>(<span class="kw">paste0</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assists_vs_height &lt;-<span class="st"> </span>data.world<span class="op">::</span><span class="kw">qry_sql</span>(<span class="kw">paste0</span>(
   <span class="st">&quot;SELECT t.Name, t.Height, s.AssistsPerGame &quot;</span>,
   <span class="st">&quot;FROM DataDotWorldBBallTeam as t &quot;</span>,
   <span class="st">&quot;JOIN DataDotWorldBBallStats as s ON t.Name = s.Name &quot;</span>,
   <span class="st">&quot;ORDER BY s.AssistsPerGame DESC&quot;</span>))
 
-data.world::<span class="kw">query</span>(assists_vs_height, <span class="dt">dataset =</span> intro_ds)</code></pre></div>
+data.world<span class="op">::</span><span class="kw">query</span>(assists_vs_height, <span class="dt">dataset =</span> intro_ds)</code></pre></div>
 </div>
 <div id="parameterized-queries" class="section level2">
 <h2>Parameterized queries</h2>
 <p>SQL queries can be parameterized for maximum flexibility. Parameters are always positional and can be provided via the <code>qry_sql</code> object.<br />
 For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assists_greater_than &lt;-<span class="st"> </span>data.world::<span class="kw">qry_sql</span>(<span class="kw">paste0</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assists_greater_than &lt;-<span class="st"> </span>data.world<span class="op">::</span><span class="kw">qry_sql</span>(<span class="kw">paste0</span>(
   <span class="st">&quot;SELECT t.Name, t.Height, s.AssistsPerGame &quot;</span>,
   <span class="st">&quot;FROM DataDotWorldBBallTeam as t &quot;</span>,
   <span class="st">&quot;JOIN DataDotWorldBBallStats as s ON t.Name = s.Name &quot;</span>,
   <span class="st">&quot;WHERE s.AssistsPerGame &gt; ? &quot;</span>,
   <span class="st">&quot;ORDER BY s.AssistsPerGame DESC&quot;</span>))
 
-assists_greater_than$params &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>)
-data.world::<span class="kw">query</span>(assists_greater_than, intro_ds)</code></pre></div>
+assists_greater_than<span class="op">$</span>params &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>)
+data.world<span class="op">::</span><span class="kw">query</span>(assists_greater_than, intro_ds)</code></pre></div>
 </div>
 </div>
 <div id="sparql" class="section level1">
@@ -132,7 +132,7 @@ data.world::<span class="kw">query</span>(assists_greater_than, intro_ds)</code>
 <div id="select-queries-1" class="section level2">
 <h2>SELECT queries</h2>
 <p>The previous SELECT query from the SQL example, translated to SPARQL, looks like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assists_vs_height &lt;-<span class="st"> </span>data.world::<span class="kw">qry_sparql</span>(<span class="kw">paste</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assists_vs_height &lt;-<span class="st"> </span>data.world<span class="op">::</span><span class="kw">qry_sparql</span>(<span class="kw">paste</span>(
   <span class="st">&quot;BASE &lt;http://data.world/jonloyens/an-intro-to-dataworld-dataset/&gt; &quot;</span>,
   <span class="st">&quot;PREFIX t: &lt;DataDotWorldBBallTeam.csv/DataDotWorldBBallTeam#&gt; &quot;</span>,
   <span class="st">&quot;PREFIX s: &lt;DataDotWorldBBallStats.csv/DataDotWorldBBallStats#&gt; &quot;</span>,
@@ -145,12 +145,12 @@ data.world::<span class="kw">query</span>(assists_greater_than, intro_ds)</code>
   <span class="st">&quot;ORDER BY DESC (?assists)&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>
 ))
 
-data.world::<span class="kw">query</span>(assists_vs_height, intro_ds)</code></pre></div>
+data.world<span class="op">::</span><span class="kw">query</span>(assists_vs_height, intro_ds)</code></pre></div>
 </div>
 <div id="parameterized-sparql-queries" class="section level2">
 <h2>Parameterized SPARQL queries</h2>
 <p>Similarly, the previous parameterized query from the SQL example can be translated to SPARQL as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assists_greater_than &lt;-<span class="st"> </span>data.world::<span class="kw">qry_sparql</span>(<span class="kw">paste</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assists_greater_than &lt;-<span class="st"> </span>data.world<span class="op">::</span><span class="kw">qry_sparql</span>(<span class="kw">paste</span>(
   <span class="st">&quot;BASE &lt;http://data.world/jonloyens/an-intro-to-dataworld-dataset/&gt; &quot;</span>,
   <span class="st">&quot;PREFIX t: &lt;DataDotWorldBBallTeam.csv/DataDotWorldBBallTeam#&gt; &quot;</span>,
   <span class="st">&quot;PREFIX s: &lt;DataDotWorldBBallStats.csv/DataDotWorldBBallStats#&gt; &quot;</span>,
@@ -163,8 +163,8 @@ data.world::<span class="kw">query</span>(assists_vs_height, intro_ds)</code></p
   <span class="st">&quot;} &quot;</span>,
   <span class="st">&quot;ORDER BY DESC (?assists)&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>
 ))
-assists_greater_than$params &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;$v1&quot;</span> =<span class="st"> </span><span class="dv">10</span>)
-data.world::<span class="kw">query</span>(assists_greater_than, intro_ds)</code></pre></div>
+assists_greater_than<span class="op">$</span>params &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;$v1&quot;</span> =<span class="st"> </span><span class="dv">10</span>)
+data.world<span class="op">::</span><span class="kw">query</span>(assists_greater_than, intro_ds)</code></pre></div>
 <p>Notice that in the SPARQL case, parameters are always named.</p>
 </div>
 <div id="next" class="section level2">

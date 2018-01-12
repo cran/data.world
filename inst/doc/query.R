@@ -4,7 +4,7 @@ CONFIGURED <- !is.null(getOption("dw.auth_token"))
 knitr::opts_chunk$set(
   collapse = FALSE,
   comment = "##",
-  purl = NOT_CRAN & CONFIGURED,
-  eval = NOT_CRAN & CONFIGURED
+  purl = NOT_CRAN && CONFIGURED,
+  eval = NOT_CRAN && CONFIGURED
 )
 
