@@ -81,8 +81,8 @@ Configuration can be provided in 3 forms:</p>
 </ul>
 <p>Config files are the most convenient configuration method. Once saved configuration will be automatically restored when <code>data.world</code> is loaded.</p>
 <p>From the R console:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">saved_cfg &lt;-<span class="st"> </span>data.world<span class="op">::</span><span class="kw">save_config</span>(<span class="st">&quot;YOUR API TOKEN&quot;</span>)
-data.world<span class="op">::</span><span class="kw">set_config</span>(saved_cfg)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">saved_cfg &lt;-<span class="st"> </span>data.world::<span class="kw">save_config</span>(<span class="st">&quot;YOUR API TOKEN&quot;</span>)
+data.world::<span class="kw">set_config</span>(saved_cfg)</code></pre></div>
 <p>To obtain your API token, visit: <a href="https://data.world/settings/advanced" class="uri">https://data.world/settings/advanced</a> For additional configuration options, see <code>?set_config</code></p>
 <div id="do-not-share-your-authentication-token" class="section level3">
 <h3>DO NOT SHARE YOUR AUTHENTICATION TOKEN</h3>
@@ -94,8 +94,8 @@ data.world<span class="op">::</span><span class="kw">set_config</span>(saved_cfg
 <p>Use the data.world package to retrieve data from the site using SQL or SPARQL.</p>
 <p>Here is an example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">intro_ds &lt;-<span class="st"> &quot;https://data.world/jonloyens/an-intro-to-dataworld-dataset&quot;</span>
-team_df &lt;-<span class="st"> </span>data.world<span class="op">::</span><span class="kw">query</span>(
-  data.world<span class="op">::</span><span class="kw">qry_sql</span>(<span class="st">&quot;SELECT * FROM DataDotWorldBBallTeam&quot;</span>),
+team_df &lt;-<span class="st"> </span>data.world::<span class="kw">query</span>(
+  data.world::<span class="kw">qry_sql</span>(<span class="st">&quot;SELECT * FROM DataDotWorldBBallTeam&quot;</span>),
   <span class="dt">dataset =</span> intro_ds
 )
 
@@ -120,8 +120,8 @@ team_df</code></pre></div>
 <h2>data.world REST API</h2>
 <p>The <code>dwapi</code> package simplifies access to data.world REST APIs. <code>dwapi</code> is bundled and automatically loaded with <code>data.world</code>. Using it you can create and update datasets, upload data and update metadata, among other things.</p>
 <p>For example, to get the definitions of a dataset, you can:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">intro_def &lt;-<span class="st"> </span>dwapi<span class="op">::</span><span class="kw">get_dataset</span>(intro_ds)
-intro_def<span class="op">$</span>description</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">intro_def &lt;-<span class="st"> </span>dwapi::<span class="kw">get_dataset</span>(intro_ds)
+intro_def$description</code></pre></div>
 <p>To learn more about data.world’s REST API, checkout <a href="https://docs.data.world/documentation/api" class="uri">https://docs.data.world/documentation/api</a> and <code>?dwapi</code>.</p>
 </div>
 
